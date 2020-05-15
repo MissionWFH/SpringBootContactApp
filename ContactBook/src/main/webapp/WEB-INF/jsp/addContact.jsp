@@ -48,7 +48,7 @@ th, td,tr {
 	<h2 align="center">----- Contact Manager Application -----</h2>
 	<div align="center">
 		<h4>Add New Contact</h4>
-		<form:form method="post" action="save">
+		<form:form method="post" action="../save">
 			<table>
 				<tr>
 					<td>Name :</td>

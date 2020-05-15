@@ -3,6 +3,7 @@ package com.book.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,21 @@ public class ContactController {
 	@RequestMapping(value = "/")
 	public String home(Model m) {
 		System.out.println("Invoking home method from controller class as First Request ....");
-		List<Contact> list = service.getAllContact();
+		return listByPageReq(1, m);
+	}
+	
+	@RequestMapping(value = "/page/{PageNum}")
+	public String listByPageReq(@PathVariable int PageNum, Model m) {
+	
+		Page<Contact> page = service.getAllContact(PageNum);
+		long totalContcat = page.getTotalElements();
+		int totalPages = page.getTotalPages();
+		
+		List<Contact> list = page.getContent();
+		
+		m.addAttribute("currPage", PageNum);
+		m.addAttribute("totalContcat", totalContcat);
+		m.addAttribute("totalPages", totalPages);
 		m.addAttribute("listContact", list);
 		return "index";
 	}

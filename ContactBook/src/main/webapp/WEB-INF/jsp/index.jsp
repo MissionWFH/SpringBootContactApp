@@ -39,11 +39,27 @@ $(document).ready(function(){
 	  padding: 16px;
 	  text-align: center;
 	}
-	a{
+	.alink{
 		text-decoration: none;
 	}
 	.message{
 		margin-bottom: 15px;
+	}
+	.pagination {
+	  display: inline-block;
+	}
+	.pagination a {
+	  color: black;
+	  padding: 8px 16px;
+	  text-decoration: none;
+	}
+	.pagination a.active {
+	  background-color: #4CAF50;
+	  color: white;
+	  border-radius: 50%;
+	}	
+	.pagination a:hover:not(.active) {
+		background-color: #ddd;
 	}
 </style>
 </head>
@@ -52,7 +68,7 @@ $(document).ready(function(){
 	<div align="center">
 		<!-- <h3> Contact List </h3> -->
 		<div style="margin: 15px 0px;">
-			<a href="addContact">Add Contact</a>
+			<a class="alink" href="../addContact">Add Contact</a>
 		</div>
 		<div class="form-group">
 			<input style="width: 20%;" class="form-control" type="text" id="contactSearch" placeholder="Search Contact ">
@@ -83,8 +99,8 @@ $(document).ready(function(){
 						<td>${list.email}</td>
 						<td>${list.address}</td>
 						<td>${list.phone}</td>
-						<td><a href="editcontact/${list.id}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-							href="deletecontact/${list.id}">Delete</a></td>
+						<td><a class="alink" href="../editcontact/${list.id}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+							class="alink" href="../deletecontact/${list.id}">Delete</a></td>
 					</tr>
 				</c:forEach>
 				</c:when>
@@ -96,6 +112,35 @@ $(document).ready(function(){
 			</c:choose>
 			</tbody>
 		</table>
+	</div>
+	<div class="pagination" style="display: block; text-align: center; margin-top: 20px;">
+		Total Contact : ${totalContcat} - Page ${currPage} of ${totalPages} -
+		<c:choose>
+			<c:when test="${currPage > 1}">
+				<a href="${currPage-1}">Previous</a>
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
+
+		<c:forEach var="contactPage" begin="1" end="${totalPages}">
+			<c:choose>
+				<c:when test="${contactPage != currPage}">
+					<a href="/page/${contactPage}"><c:out value="${contactPage}" /></a>&nbsp;
+				</c:when>
+				<c:otherwise>
+					<a class="active" href="/page/${contactPage}"><c:out value="${contactPage}" /></a>&nbsp;
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+		<c:choose>
+			<c:when test="${currPage < totalPages}">
+				<a href="${currPage+1}">Next</a>
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </body>
 </html>

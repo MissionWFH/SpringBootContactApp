@@ -48,7 +48,7 @@ th, td,tr {
 	<h2 align="center">----- Contact Manager Application -----</h2>
 	<div align="center">
 		<h4>Update Contact</h4>
-		<form:form method="post" action="/editsave" modelAttribute="contact">
+		<form:form method="post" action="../editsave" modelAttribute="contact">
 			<table>
 				<tr style="visibility: collapse;">
 					<td></td>
